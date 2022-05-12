@@ -1,49 +1,81 @@
 import React, { Component } from "react";
+import Home from "./HomeComponent";
 import Directory from "./DirectoryComponent";
-import { CAMPSITES } from "../shared/campsites";
 import CampsiteInfo from "./CampsiteInfoComponent";
-import Constants from 'expo-constants';
-import { View, Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
+import Constants from "expo-constants";
+import { View, Platform } from "react-native";
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import { createAppContainer } from "react-navigation";
 
 // directory nav declared and created
 
 const DirectoryNavigator = createStackNavigator(
-    {
-        Directory: { screen: Directory },
-        CampsiteInfo: { screen: CampsiteInfo }
-    }, 
-    {
-        initialRouteName: 'Directory',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#5637DD'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        }
-    }
+  {
+    Directory: { screen: Directory },
+    CampsiteInfo: { screen: CampsiteInfo },
+  },
+  {
+    initialRouteName: "Directory",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#5637DD",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
 );
 
-const AppNavigator = createAppContainer(DirectoryNavigator);
+const HomeNavigator = createStackNavigator(
+  {
+    Home: { screen: Home },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#5637DD",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
+);
+
+const MainNavigator = createDrawerNavigator(
+  // drawer screens
+
+  {
+    Home: { screen: HomeNavigator },
+    Directory: { screen: DirectoryNavigator },
+  },
+
+  {
+    drawerBackgroundColor: "#CEC8FF",
+  }
+);
+
+const AppNavigator = createAppContainer(MainNavigator);
 
 // end directory nav
 
 class Main extends Component {
-    render() {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-            }}>
-                <AppNavigator />
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+        }}
+      >
+        <AppNavigator />
+      </View>
+    );
+  }
 }
 
 export default Main;

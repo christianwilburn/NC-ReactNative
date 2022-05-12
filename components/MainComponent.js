@@ -7,6 +7,8 @@ import { View, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
+// directory nav declared and created
+
 const DirectoryNavigator = createStackNavigator(
     {
         Directory: { screen: Directory },
@@ -27,6 +29,8 @@ const DirectoryNavigator = createStackNavigator(
 );
 
 const AppNavigator = createAppContainer(DirectoryNavigator);
+
+// end directory nav
 
 class Main extends Component {
     render() {

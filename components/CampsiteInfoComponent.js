@@ -7,6 +7,9 @@ function RenderCampsite({campsite}) {
 
     if (campsite) {
         return (
+
+            // CampsiteInfo card 
+            
             <Card
                 featuredTitle={campsite.name}
                 image={require('./images/react-lake.jpg')}
@@ -15,10 +18,13 @@ function RenderCampsite({campsite}) {
                     {campsite.description}
                 </Text>
             </Card>
+
         );
     }
     return <View />;
 }
+
+// separation
 
 class CampsiteInfo extends Component {
 

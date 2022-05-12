@@ -12,12 +12,20 @@ class Directory extends Component {
         };
     }
 
+    // Navigation item title
+
     static navigationOptions = {
         title: 'Directory'
     }
 
     render() {
+
+        // allows navigation between items
+
         const { navigate } = this.props.navigation;
+
+    //    begin renderDirectoryItem 
+
         const renderDirectoryItem = ({item}) => {
             return (
                 <ListItem
@@ -37,6 +45,9 @@ class Directory extends Component {
             />
         );
     }
-}
+
+    // end renderDirectoryItem
+}   
+
 
 export default Directory;

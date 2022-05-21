@@ -1,56 +1,65 @@
-import React, { Component } from 'react';
-import { FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { CAMPSITES } from '../shared/campsites';
-import { Tile } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { baseUrl } from '../shared/baseUrl';
+import React, { Component } from "react";
+import { View, FlatList, Text } from "react-native";
+import { ListItem } from "react-native-elements";
+import { CAMPSITES } from "../shared/campsites";
+import { Tile } from "react-native-elements";
+import { connect } from "react-redux";
+import { baseUrl } from "../shared/baseUrl";
+import Loading from "./LoadingComponent";
 
-const mapStateToProps = state => {
-    return {
-        campsites: state.campsites
-    };
+const mapStateToProps = (state) => {
+  return {
+    campsites: state.campsites,
+  };
 };
 
 class Directory extends Component {
+  // Navigation item title
 
-    // Navigation item title
+  static navigationOptions = {
+    title: "Directory",
+  };
 
-    static navigationOptions = {
-        title: 'Directory'
-    }
+  render() {
+    // allows navigation between items
 
-    render() {
+    const { navigate } = this.props.navigation;
 
-        // allows navigation between items
+    //    begin renderDirectoryItem
 
-        const { navigate } = this.props.navigation;
-
-    //    begin renderDirectoryItem 
-
-    const renderDirectoryItem = ({item}) => {
-        return (
-            <Tile
-                title={item.name}
-                caption={item.description}
-                featured
-                onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
-                imageSrc={{uri: baseUrl + item.image}}
-            />
-        );
+    const renderDirectoryItem = ({ item }) => {
+      return (
+        <Tile
+          title={item.name}
+          caption={item.description}
+          featured
+          onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
+          imageSrc={{ uri: baseUrl + item.image }}
+        />
+      );
     };
 
+    if (this.props.campsites.isLoading) {
+      return <Loading />;
+    }
+    if (this.props.campsites.errMess) {
+      return (
+        <View>
+          <Text>{this.props.campsites.errMess}</Text>
+        </View>
+      );
+    }
+
     return (
-        <FlatList
-            data={this.props.campsites.campsites}
-            renderItem={renderDirectoryItem}
-            keyExtractor={item => item.id.toString()}
-        />
+      <FlatList
+        data={this.props.campsites.campsites}
+        renderItem={renderDirectoryItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
     );
+  }
+
+  // end renderDirectoryItem
 }
-
-    // end renderDirectoryItem
-}   
-
 
 export default connect(mapStateToProps)(Directory);

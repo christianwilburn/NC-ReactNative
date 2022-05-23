@@ -8,7 +8,6 @@ import {
   Button,
   StyleSheet,
 } from "react-native";
-import { Text, View, ScrollView, FlatList } from "react-native";
 import { Card, Icon, Input, Rating } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";

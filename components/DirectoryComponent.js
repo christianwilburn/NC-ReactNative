@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { View, FlatList, Text } from "react-native";
-import { ListItem } from "react-native-elements";
-import { CAMPSITES } from "../shared/campsites";
 import { Tile } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
 import Loading from "./LoadingComponent";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = (state) => {
   return {
@@ -14,28 +13,23 @@ const mapStateToProps = (state) => {
 };
 
 class Directory extends Component {
-  // Navigation item title
-
   static navigationOptions = {
     title: "Directory",
   };
 
   render() {
-    // allows navigation between items
-
     const { navigate } = this.props.navigation;
-
-    //    begin renderDirectoryItem
-
     const renderDirectoryItem = ({ item }) => {
       return (
-        <Tile
-          title={item.name}
-          caption={item.description}
-          featured
-          onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
-          imageSrc={{ uri: baseUrl + item.image }}
-        />
+        <Animatable.View animation="fadeInRightBig" duration={2000}>
+          <Tile
+            title={item.name}
+            caption={item.description}
+            featured
+            onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
+            imageSrc={{ uri: baseUrl + item.image }}
+          />
+        </Animatable.View>
       );
     };
 
@@ -49,7 +43,6 @@ class Directory extends Component {
         </View>
       );
     }
-
     return (
       <FlatList
         data={this.props.campsites.campsites}
@@ -58,8 +51,6 @@ class Directory extends Component {
       />
     );
   }
-
-  // end renderDirectoryItem
 }
 
 export default connect(mapStateToProps)(Directory);

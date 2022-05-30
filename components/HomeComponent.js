@@ -36,8 +36,6 @@ function RenderItem(props) {
   return <View />;
 }
 
-// separation
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +55,6 @@ class Home extends Component {
   componentDidMount() {
     this.animate();
   }
-
   static navigationOptions = {
     title: "Home",
   };
@@ -87,9 +84,7 @@ class Home extends Component {
         />
         <RenderItem
           item={
-            this.props.partners.partners.filter(
-              (partner) => partner.featured
-            )[0]
+            this.props.partners.partners.filter((partner) => partner.feature)[0]
           }
           isLoading={this.props.partners.isLoading}
           errMess={this.props.partners.errMess}

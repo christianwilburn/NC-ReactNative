@@ -74,7 +74,7 @@ class Reservation extends Component {
           trigger: null
         });
       }
-      // Checking if we have permissions and granting them await can only be used in async, followed by a promise
+      // Check for permissions
       let permissions = await Notifications.getPermissionsAsync();
       if(!permissions.granted) {
         permissions = await Notifications.requestPermissionsAsync();
